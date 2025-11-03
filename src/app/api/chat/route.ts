@@ -19,7 +19,11 @@ export async function POST(req: Request) {
   // Destructure request data
   const { messages, selectedModel, data, chatId, userName } = await req.json();
 
-  const ollamaUrl = process.env.OLLAMA_URL;
+  const ollamaUrl = process.env.OLLAMA_URL ?? process.env.EBURON_URL;
+
+  if (!ollamaUrl) {
+    throw new Error("OLLAMA_URL or EBURON_URL env var must be set");
+  }
 
   const initialMessages = messages.slice(0, -1);
   const currentMessage = messages[messages.length - 1];
