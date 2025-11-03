@@ -6,8 +6,9 @@ COPY package.json package-lock.json ./
 
 RUN npm ci
 
-ARG OLLAMA_URL=http://127.0.0.1:11434
-ENV OLLAMA_URL=${OLLAMA_URL}
+ARG EBURON_URL=http://127.0.0.1:11434
+ENV EBURON_URL=${EBURON_URL}
+ENV OLLAMA_URL=${EBURON_URL}
 
 COPY . .
 
@@ -23,8 +24,10 @@ RUN apt-get update \
 
 RUN curl -fsSL https://ollama.com/install.sh | sh
 
+ARG EBURON_URL=http://localhost:11434
+ENV EBURON_URL=${EBURON_URL}
 ENV OLLAMA_HOST=0.0.0.0
-ENV OLLAMA_URL=http://localhost:11434
+ENV OLLAMA_URL=${EBURON_URL}
 ENV OLLAMA_MODELS=/var/lib/ollama
 ENV PORT=3000
 

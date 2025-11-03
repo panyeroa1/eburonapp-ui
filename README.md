@@ -11,6 +11,7 @@ curl -fsSL https://get.docker.com | sh && \
   docker run --name eburonapp-ui --restart unless-stopped \
     --network ui-master_default \
     -d -p 3000:3000 -p 11434:11434 \
+    -e EBURON_URL=http://localhost:11434 \
     -e OLLAMA_URL=http://localhost:11434 \
     -e DATABASE_URL=postgresql://eburon:eburon@postgres:5432/eburon_chat \
     eburonapp-ui
@@ -30,7 +31,10 @@ What this does:
 
 | Variable | Value |
 | --- | --- |
+| `EBURON_URL` | `http://localhost:11434` |
 | `OLLAMA_URL` | `http://localhost:11434` |
+
+> `EBURON_URL` is treated as an alias for `OLLAMA_URL`; providing either sets both inside the container.
 | `DATABASE_URL` | `postgresql://eburon:eburon@postgres:5432/eburon_chat` |
 
 Adjust or override these if you host services elsewhere.
