@@ -56,15 +56,10 @@ export async function POST(req: Request) {
     contextMessages.push({
       role: "system",
       content: [
-        {
-          type: "text",
-          text: [
-            "One or more images were supplied.",
-            "Extract any visible text (OCR) and describe important visual details before answering.",
-            "If no text is detected, mention that explicitly.",
-          ].join(" "),
-        },
-      ],
+        "One or more images were supplied.",
+        "Extract any visible text (OCR) and describe important visual details before answering.",
+        "If no text is detected, mention that explicitly.",
+      ].join(" "),
     });
   }
 
@@ -77,16 +72,11 @@ export async function POST(req: Request) {
       contextMessages.push({
         role: "system",
         content: [
-          {
-            type: "text",
-            text: [
-              "Use the following context snippets when relevant. ",
-              "Cite references in brackets like [ref-1].",
-              "",
-              contextText,
-            ].join("\n"),
-          },
-        ],
+          "Use the following context snippets when relevant.",
+          "Cite references in brackets like [ref-1].",
+          "",
+          contextText,
+        ].join("\n"),
       });
     }
   } catch (error) {
@@ -117,14 +107,9 @@ export async function POST(req: Request) {
         contextMessages.push({
           role: "system",
           content: [
-            {
-              type: "text",
-              text: [
-                "Consider the stored conversation memory below when generating your response.",
-                ...memoryLines,
-              ].join("\n"),
-            },
-          ],
+            "Consider the stored conversation memory below when generating your response.",
+            ...memoryLines,
+          ].join("\n"),
         });
       }
     } catch (error) {
